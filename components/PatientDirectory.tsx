@@ -62,10 +62,6 @@ export default function PatientDirectory() {
     setPage(1)
   }, []);
 
-  const activeFilterCount = useMemo(() => {
-    return (searchTerm ? 1 : 0) + (selectedIssue ? 1 : 0)
-  }, [searchTerm, selectedIssue]);
-
   return (
     <div className="min-h-screen bg-gray-50/50">
       {/* Header */}
@@ -119,10 +115,6 @@ export default function PatientDirectory() {
                 >
                   Card View
                 </button>
-              </div>
-              <div className="flex items-center space-x-3 text-sm font-bold text-blue-600 py-4 sm:py-0">
-                <Filter className="h-4 w-4" />
-                <span className="uppercase tracking-widest">Active Filters: {activeFilterCount}</span>
               </div>
             </div>
 
