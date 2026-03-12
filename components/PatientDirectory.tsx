@@ -43,13 +43,14 @@ export default function PatientDirectory() {
   });
 
   const handleSort = useCallback((field: string) => {
-  if (sortBy !== field) {
-    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')
-  } else {
-    setSortBy(sortBy)
-    setSortOrder('desc')
-  }
-}, []);
+    if (sortBy === field) {
+      setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortBy(field)
+      setSortOrder('asc')
+    }
+    setPage(1)
+  }, [sortBy]);
 
   const handleSearch = useCallback((value: string) => {
     setSearchTerm(value)
