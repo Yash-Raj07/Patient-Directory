@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import PatientAvatar from "./PatientAvatar"
 import type { Patient } from "@/hooks/usePatients"
 
 interface PatientTableProps {
@@ -46,15 +47,12 @@ const PatientTable = memo(({ patients }: PatientTableProps) => {
             <TableCell className="font-medium text-blue-600">ID-{patient.patient_id.toString().padStart(4, '0')}</TableCell>
             <TableCell>
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-blue-100 overflow-hidden flex-shrink-0 border border-blue-200">
-                  {patient.photo_url ? (
-                    <img src={patient.photo_url} alt={patient.patient_name} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center text-blue-600 text-xs font-bold">
-                      {patient.patient_name.charAt(0)}
-                    </div>
-                  )}
-                </div>
+                <PatientAvatar 
+                  photoUrl={patient.photo_url} 
+                  patientId={patient.patient_id} 
+                  name={patient.patient_name} 
+                  size="sm"
+                />
                 <span className="font-medium text-gray-900">{patient.patient_name}</span>
               </div>
             </TableCell>

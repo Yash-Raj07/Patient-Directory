@@ -3,6 +3,7 @@
 import React, { memo } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import PatientAvatar from "./PatientAvatar"
 import type { Patient } from "@/hooks/usePatients"
 
 interface PatientCardListProps {
@@ -25,15 +26,12 @@ const PatientCardList = memo(({ patients }: PatientCardListProps) => {
           <CardContent className="p-5">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-blue-100 overflow-hidden border-2 border-white shadow-inner flex-shrink-0">
-                  {patient.photo_url ? (
-                    <img src={patient.photo_url} alt={patient.patient_name} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center text-blue-600 text-sm font-bold">
-                      {patient.patient_name.charAt(0)}
-                    </div>
-                  )}
-                </div>
+                <PatientAvatar 
+                  photoUrl={patient.photo_url} 
+                  patientId={patient.patient_id} 
+                  name={patient.patient_name} 
+                  size="md"
+                />
                 <div>
                   <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-blue-600 transition-colors">
                     {patient.patient_name}
