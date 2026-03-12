@@ -25,24 +25,6 @@ const Controls = memo(({
   onSortChange,
   medicalIssues
 }: ControlsProps) => {
-
-  
- <Button 
-  variant="outline" 
-  size="sm" 
-  onClick={() => onSortChange("patient_name")}
->
-  Name <ArrowUpDown className="ml-2 h-3.5 w-3.5" />
-</Button>
-
-<Button 
-  variant="outline" 
-  size="sm" 
-  onClick={() => onSortChange("age")}
->
-  Age <ArrowUpDown className="ml-2 h-3.5 w-3.5" />
-</Button>
-
   return (
     <div className="p-6 bg-white space-y-4">
       <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -58,41 +40,44 @@ const Controls = memo(({
         
         <div className="flex items-center gap-4 w-full md:w-auto">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-gray-400 whitespace-nowrap uppercase tracking-wider">
-              Sort by:
-            </span>
-
-            
+            <span className="text-sm font-semibold text-gray-400 whitespace-nowrap uppercase tracking-wider">Sort by:</span>
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={handleSort}
+              onClick={() => onSortChange('patient_name')}
+              className={cn(
+                "h-10 rounded-lg border-gray-200 text-gray-600 font-semibold hover:text-blue-600",
+                sortBy === 'patient_name' && "border-blue-600 text-blue-600 bg-blue-50"
+              )}
             >
               Name <ArrowUpDown className="ml-2 h-3.5 w-3.5" />
             </Button>
-
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={handleSort}
+              onClick={() => onSortChange('age')}
+              className={cn(
+                "h-10 rounded-lg border-gray-200 text-gray-600 font-semibold hover:text-blue-600",
+                sortBy === 'age' && "border-blue-600 text-blue-600 bg-blue-50"
+              )}
             >
               Age <ArrowUpDown className="ml-2 h-3.5 w-3.5" />
             </Button>
-
           </div>
         </div>
       </div>
 
+      {/* Filter Chips */}
       <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
         {medicalIssues.map(issue => (
           <button
             key={issue}
-            onClick={() => onIssueChange(issue)}
+            onClick={() => onIssueChange(selectedIssue === issue ? "" : issue)}
             className={cn(
               "px-4 py-1.5 rounded-full text-xs font-bold transition-all border uppercase tracking-wider",
               selectedIssue === issue 
-                ? "bg-blue-600 text-white border-blue-600"
-                : "bg-white text-gray-500 border-gray-200"
+                ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-100" 
+                : "bg-white text-gray-500 border-gray-200 hover:border-blue-300 hover:text-blue-500"
             )}
           >
             {issue}
