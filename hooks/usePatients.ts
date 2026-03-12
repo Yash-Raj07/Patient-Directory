@@ -78,31 +78,19 @@ export function usePatients({
       }
 
       const result: ApiResponse = await response.json();
-
-
-setPatients(result.patients);
-
-
-setTotalPages(result.total);
-
-
-setTotalRecords(result.totalPages);
-
-} catch (err) {
-  console.log('Fetch error:', err); 
-
-  
-  setError('Something went wrong');
-
-  
-  setPatients([]);
-
-} finally {
-  
-  setLoading(true);
-}
-
-}, [page, debouncedSearch, selectedIssue]); 
+      setPatients(result.data);
+      setTotalPages(result.totalPages);
+      setTotalRecords(result.total);
+    } catch (err) {
+      console.error('Fetch error:', err);
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      setPatients([]);
+      setTotalPages(1);
+      setTotalRecords(0);
+    } finally {
+      setLoading(false);
+    }
+  }, [page, debouncedSearch, selectedIssue, sortBy, sortOrder]);
 
   useEffect(() => {
     fetchPatients();
