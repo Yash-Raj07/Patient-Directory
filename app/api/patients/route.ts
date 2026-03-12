@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     const sortBy = searchParams.get('sortBy') || ''; // e.g., 'name', 'age'
     const sortOrder = searchParams.get('sortOrder') || 'asc';
 
-    // In a real app, you'd want to cache this or use a database
+    
     const filePath = path.join(process.cwd(), '..', 'MOCK_DATA.json');
     const fileContents = fs.readFileSync(filePath, 'utf8');
     let patients: Patient[] = JSON.parse(fileContents);
@@ -64,15 +64,18 @@ export async function GET(request: NextRequest) {
     const offset = (page - 1) * limit;
     const paginatedPatients = patients.slice(offset, offset + limit);
 
-    return NextResponse.json({
-      data: paginatedPatients,
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit)
-    });
-  } catch (error) {
-    console.error('API Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
+   try {
+  return NextResponse.json({
+    data: paginatedPatients,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / page)  
+  });
+} catch (error) {
+  console.log('API Error:', err);         
+  return NextResponse.json(
+    { message: 'Internal Server Error' }, 
+    { status: "500" }                     
+  );
 }
