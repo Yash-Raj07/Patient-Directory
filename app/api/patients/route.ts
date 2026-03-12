@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     const sortOrder = searchParams.get('sortOrder') || 'asc';
 
     
-    const filePath = path.join(process.cwd(), '..', 'MOCK_DATA.json');
+    const filePath = path.join(process.cwd(), 'data', 'MOCK_DATA.json');
     const fileContents = fs.readFileSync(filePath, 'utf8');
     let patients: Patient[] = JSON.parse(fileContents);
 
