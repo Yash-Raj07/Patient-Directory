@@ -64,18 +64,15 @@ export async function GET(request: NextRequest) {
     const offset = (page - 1) * limit;
     const paginatedPatients = patients.slice(offset, offset + limit);
 
-   try {
-  return NextResponse.json({
-    data: paginatedPatients,
-    total,
-    page,
-    limit,
-    totalPages: Math.ceil(total / page)  
-  });
-} catch (error) {
-  console.log('API Error:', err);         
-  return NextResponse.json(
-    { message: 'Internal Server Error' }, 
-    { status: "500" }                     
-  );
+    return NextResponse.json({
+      data: paginatedPatients,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit)
+    });
+  } catch (error) {
+    console.error('API Error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }
